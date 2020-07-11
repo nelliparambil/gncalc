@@ -1,38 +1,74 @@
 # Calculator Class
-from calculator.about_window import AboutWindow
+from about_window import AboutWindow
 from tkinter import *
 
-class Calculator:
-    def __init__(self):
-        self.root = Tk()
-        self.root.geometry('500x500')
+class Calculator(Frame):
+    def __init__(self, master):
+        #.geometry('500x500')
+        super(Calculator, self).__init__(master)
+        self.master = master
+        self.init_calculator_gui()
 
-        # Menubar
-        self.menubar = Menu(self.root)                        
+
+    def init_calculator_gui(self):    
+        self.master.title("Calculator")
+        self.master.geometry('500x500')
+
+        # Menubar -------------------------------------------------------------
+        # File Menu
+        self.menubar = Menu(self.master)                        
         self.filemenu = Menu(self.menubar, tearoff=0)
-        self.filemenu.add_command(label="Quit", command=self.root.quit)
+        self.filemenu.add_command(label="Quit", command=self.quit)
         self.menubar.add_cascade(label="File", menu=self.filemenu)
-
-        self.about = AboutWindow("GN Calculator")
+        # About Menu
+        self.about = AboutWindow("Calculator")
         self.helpmenu = Menu(self.menubar, tearoff=0)
         self.helpmenu.add_command(label="About", command=self.about.run)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
-        self.root.config(menu=self.menubar)
 
+        self.master.config(menu=self.menubar)
+
+        # Calculator Display --------------------------------------------------
+        # Container for Calculator Display
+        self.disp_container = Frame(self.master, bg="#505450", padx=10, 
+                pady=10, relief=SUNKEN)
+        self.disp_container.pack()
+        # Variable for updating calculator display
+        self.disp_text = StringVar()
+        self.disp_text.trace(mode="w", callback=self.set_display_text)
+        # Calculator display entry
+        self.calc_display = Entry(self.disp_container, 
+                textvariable = self.disp_text, width=100)
+        self.calc_display.pack()
+
+
+    def set_display_text(self):
+        try:
+            self.calc_display.config({"background": self.calc_display.get()})
+        except:
+            self.calc_display.config({"background": "0"})
+
+
+'''
         # Pack in main container
-        self.root_container = Frame(self.root)
-        self.root_container.pack()
+        self_container = Frame(self)
+        self_container.pack()
 
 
         # Calculator display
-        self.disp_container = Frame(self.root_container)
+        self.disp_container = Frame(self_container)
         self.disp_container.pack()
-        self.entry = Entry(self.disp_container)
-        self.entry.pack()
+        self.display = Label(self.disp_container)
+        #self.display.configure(bg="white", width=50, height=5)
+        self.display.configure(bg="white")
+        #self.display.pack()
+        self.display.grid(row=0, column=0)
+        self.disp_container.grid_rowconfigure(0, weight=1)
+        self.disp_container.grid_columnconfigure(0, weight=1)
 
 
         # Grid for buttons
-        self.btn_container = Frame(self.root_container)
+        self.btn_container = Frame(self_container)
         self.btn_container.pack()
 
         btn_percent = Button(self.btn_container, text="%")
@@ -78,12 +114,18 @@ class Calculator:
         btn_comma = Button(self.btn_container, text=",")
         btn_comma.grid(row=4, column=1)
         btn_plusorminus = Button(self.btn_container, text="+/-")
-        btn_plusorminus.grid(row=4, column=2)                        
+        btn_plusorminus.grid(row=4, column=2)     
 
-    def run(self):
-        self.root.mainloop()
+        for i in range(4):
+            self.btn_container.grid_rowconfigure(i, weight=1)
+        for i in range(4):    
+            self.btn_container.grid_columnconfigure(i, weight=1)                   
+'''
 
 
-
+if __name__ == "__main__":    
+    root = Tk()
+    calc = Calculator(root)
+    root.mainloop()
 
 
