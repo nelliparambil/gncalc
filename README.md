@@ -10,7 +10,9 @@ This project has been created accepting the Python Coding Challenge from a Youtu
 
 ## Screenshots
 
-## License
+Screenshot of the Calculator:
+
+![Calculator screenshot](https://github.com/nelliparambil/gncalc/blob/master/images/20200712_calculator_screenshot.png)
 
 
 
