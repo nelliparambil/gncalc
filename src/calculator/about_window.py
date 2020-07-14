@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import Tk, Label
 
 class AboutWindow:
     def __init__(self, msg):
