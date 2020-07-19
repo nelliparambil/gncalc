@@ -2,7 +2,7 @@ import unittest
 import sys
 import os
 
-from tkinter import Tk
+from tkinter import Tcl
 from os.path import dirname, abspath, join
 
 # Add required directories to the path
@@ -16,10 +16,11 @@ from calculator import Calculator
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
-    
+
 class TestCalculator(unittest.TestCase):
     def setUp(self):
-        self.root = Tk()
+        self.root = Tcl()
+        self.root.loadtk()
         self.calc = Calculator(self.root)        
 
 
