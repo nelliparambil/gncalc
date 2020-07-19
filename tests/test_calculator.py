@@ -1,6 +1,8 @@
 import unittest
 import sys
+import os
 
+from tkinter import Tk
 from os.path import dirname, abspath, join
 
 # Add required directories to the path
@@ -10,9 +12,15 @@ sys.path.append(CALC_DIR)
 
 from calculator import Calculator
 
+# To fix problem with "TclError: no display name and no $DISPLAY environment variable"
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0.0')
+    os.environ.__setitem__('DISPLAY', ':0.0')
+    
 class TestCalculator(unittest.TestCase):
     def setUp(self):
-        self.calc = Calculator()        
+        self.root = Tk()
+        self.calc = Calculator(self.root)        
 
 
     def test_multiple_digit_clicks(self):
