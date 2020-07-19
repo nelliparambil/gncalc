@@ -3,8 +3,6 @@ import sys
 
 from os.path import dirname, abspath, join
 
-from tkinter import Tk
-
 # Add required directories to the path
 CURRENT_DIR = dirname(__file__)
 CALC_DIR = abspath(join(CURRENT_DIR, '../src/', 'calculator'))
@@ -14,8 +12,7 @@ from calculator import Calculator
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
-        self.root = Tk()
-        self.calc = Calculator(self.root)        
+        self.calc = Calculator()        
 
 
     def test_multiple_digit_clicks(self):
@@ -37,6 +34,7 @@ class TestCalculator(unittest.TestCase):
         self.calc.on_click_digit('.')
         self.calc.on_click_digit('5')
         self.assertEqual(self.calc.disp_text.get(), '1.5')
+
 
 if __name__ == "__main__":
     unittest.main()        

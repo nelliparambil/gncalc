@@ -3,8 +3,9 @@ from about_window import AboutWindow
 from tkinter import *
 
 class Calculator(Frame):
-    def __init__(self, master):
+    def __init__(self, master=None):
         super(Calculator, self).__init__(master)
+
         self.master = master
         self.init_calculator_gui()
         self.str_left_operand = ''
@@ -14,8 +15,9 @@ class Calculator(Frame):
 
 
     def init_calculator_gui(self):    
-        self.master.title("Calculator")
-        self.master.geometry('350x350')
+        if self.master != None:                
+                self.master.title("Calculator")
+                self.master.geometry('350x350')
 
         # Menubar -------------------------------------------------------------
         # File Menu
@@ -29,7 +31,8 @@ class Calculator(Frame):
         self.helpmenu.add_command(label="About", command=self.about.run)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
-        self.master.config(menu=self.menubar)
+        if self.master != None:                           
+                self.master.config(menu=self.menubar)
 
         # Calculator Display --------------------------------------------------
         # Container for Calculator Display
