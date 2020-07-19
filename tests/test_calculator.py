@@ -2,7 +2,7 @@ import unittest
 import sys
 import os
 
-from tkinter import Tcl
+import tkinter as tk
 from os.path import dirname, abspath, join
 
 # Add required directories to the path
@@ -12,9 +12,17 @@ sys.path.append(CALC_DIR)
 
 from calculator import Calculator
 
+# To fix problem with "TclError: no display name and no $DISPLAY environment variable"
+print("Display Var is set to")
+print(os.environ.get('DISPLAY',''))
+
+if os.environ.get('DISPLAY','') == '':
+    print('no display found. Using :0')
+    os.environ.__setitem__('DISPLAY', ':0')
+
 class TestCalculator(unittest.TestCase):
     def setUp(self):
-        self.root = Tcl()
+        self.root = tk.Tcl()
         self.root.loadtk()
         self.calc = Calculator(self.root)        
 
@@ -41,12 +49,4 @@ class TestCalculator(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    # To fix problem with "TclError: no display name and no $DISPLAY environment variable"
-    print("Display Var is set to")
-    print(os.environ.get('DISPLAY',''))
-
-    if os.environ.get('DISPLAY','') == '':
-        print('no display found. Using :0')
-        os.environ.__setitem__('DISPLAY', ':0')
-        
     unittest.main()        
