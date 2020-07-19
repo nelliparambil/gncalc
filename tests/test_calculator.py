@@ -14,13 +14,12 @@ from calculator import Calculator
 
 
 # To fix problem with "TclError: no display name and no $DISPLAY environment variable"
+print("Display Var is set to")
 print(os.environ.get('DISPLAY',''))
 
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0')
     os.environ.__setitem__('DISPLAY', ':0')
-
-os.environ.__setitem__('DISPLAY', 'unix:1')
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
