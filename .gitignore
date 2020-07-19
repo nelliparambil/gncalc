@@ -1,3 +1,4 @@
 # Ingoring files 
 __pycache__/
 gncalc_env/
+gnenv/
