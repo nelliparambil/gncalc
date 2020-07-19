@@ -43,9 +43,9 @@ class Calculator(tk.Frame):
         self.disp_text = tk.StringVar()
         self.disp_text.set('0')
         # Calculator display entry
-        self.calc_display = tk.Label(self.disp_container, bg='black',
+        self.calc_display = tk.Label(self.disp_container, bg='white',
                 textvariable=self.disp_text, height=2, width=48, anchor='e',
-                padx=10, font='Helvetica 16 bold')                
+                padx=10, font='Helvetica 16 bold')            
         self.calc_display.pack()
 
         # Calculator Keypad ---------------------------------------------------

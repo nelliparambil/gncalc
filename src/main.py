@@ -1,4 +1,4 @@
-from tkinter import Tk
+import tkinter as tk
 
 from os.path import dirname, abspath, join
 import sys 
@@ -11,7 +11,7 @@ sys.path.append(CALC_DIR)
 from calculator import Calculator
 
 if __name__ == "__main__":    
-    root = Tk()
+    root = tk.Tk()
     calc = Calculator(root)
     root.mainloop()
 
