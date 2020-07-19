@@ -13,11 +13,10 @@ sys.path.append(CALC_DIR)
 from calculator import Calculator
 
 # To fix problem with "TclError: no display name and no $DISPLAY environment variable"
-'''
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0.0')
     os.environ.__setitem__('DISPLAY', ':0.0')
-'''
+
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
