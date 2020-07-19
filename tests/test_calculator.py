@@ -2,7 +2,7 @@ import unittest
 import sys
 import os
 
-from tkinter import Tcl
+import tkinter as tk
 from os.path import dirname, abspath, join
 
 # Add required directories to the path
@@ -22,7 +22,7 @@ if os.environ.get('DISPLAY','') == '':
 
 class TestCalculator(unittest.TestCase):
     def setUp(self):
-        self.root = Tcl()
+        self.root = tk.Tcl()
         self.root.loadtk()
         self.calc = Calculator(self.root)        
 
