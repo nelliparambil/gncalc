@@ -14,6 +14,8 @@ from calculator import Calculator
 
 
 # To fix problem with "TclError: no display name and no $DISPLAY environment variable"
+print(os.environ.get('DISPLAY',''))
+
 if os.environ.get('DISPLAY','') == '':
     print('no display found. Using :0')
     os.environ.__setitem__('DISPLAY', ':0')
