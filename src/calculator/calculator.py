@@ -126,9 +126,9 @@ class Calculator(tk.Frame):
         btn_dot = tk.Button(self.keypad_container, text=".", height=2,
                 width=5, command=lambda: self.on_click_digit('.'))        
         btn_dot.grid(row=4, column=2, padx=(3,1), pady=(3,1), sticky=tk.W+tk.E+tk.S+tk.N)
-        btn_plusorminus = tk.Button(self.keypad_container, text="+/-", height=2,
-                width=5, command=lambda: self.on_click_symbol('+/-'))        
-        btn_plusorminus.grid(row=4, column=4, padx=(3,1), 
+        btn_sign = tk.Button(self.keypad_container, text="+/-", height=2,
+                width=5, command=lambda: self.on_click_sign())        
+        btn_sign.grid(row=4, column=4, padx=(3,1), 
                 pady=(3,1), sticky=tk.W+tk.E+tk.S+tk.N)
                 
         for i in range(4):
@@ -177,6 +177,17 @@ class Calculator(tk.Frame):
     def on_click_symbol(self, symbol):
         pass
 
+    def on_click_sign(self):
+        current_diplay_text = self.disp_text.get()    
+        if current_diplay_text == '0':
+                self.disp_text.set('+')
+        elif current_diplay_text == '+':
+                self.disp_text.set('-')
+        elif current_diplay_text == '-':
+                self.disp_text.set('+')
+        else:
+                self.disp_text.set('+')
+                
 
     def on_click_ac(self):
         self.str_left_operand = ''

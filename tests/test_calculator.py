@@ -44,6 +44,24 @@ class TestCalculator(unittest.TestCase):
         self.calc.on_click_digit('5')
         self.assertEqual(self.calc.disp_text.get(), '1.5')
 
+    def test_ac_clears_all_vars(self):
+        self.calc.on_click_ac()
+        self.assertEqual(self.calc.str_left_operand, '')
+        self.assertEqual(self.calc.str_right_operand, '')
+        self.assertEqual(self.calc.str_pending_operation, '')
+        self.assertEqual(self.calc.str_last_result, '')
+
+    def test_one_click_sign_button_is_plus(self):
+        self.calc.on_click_sign()
+        self.assertEqual(self.calc.disp_text.get(), '+')
+
+    def test_two_clicks_sign_button_is_minus(self):
+        self.calc.on_click_sign()
+        self.calc.on_click_sign()
+        self.assertEqual(self.calc.disp_text.get(), '-')        
+
+
+
 
 if __name__ == "__main__":
     unittest.main()        
