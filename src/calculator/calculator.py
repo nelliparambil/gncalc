@@ -34,6 +34,13 @@ class Calculator(tk.Frame):
         if self.master != None:                           
                 self.master.config(menu=self.menubar)
 
+        # Status Bar
+        self.status_text = tk.StringVar()
+        self.status_text.set('')
+        self.statusbar = tk.Label(self.master, textvariable=self.status_text, 
+                bd=1, relief=tk.SUNKEN, anchor=tk.W)
+        self.statusbar.pack(side=tk.BOTTOM, fill=tk.X)                
+
         # Calculator Display --------------------------------------------------
         # Container for Calculator Display
         self.disp_container = tk.Frame(self.master, padx=5, 
@@ -71,7 +78,7 @@ class Calculator(tk.Frame):
                 pady=(3,1), sticky=tk.W+tk.E+tk.S+tk.N)
         btn_clear = tk.Button(self.keypad_container, text="C", height=2,
                 width=5, bg="#d65a29", 
-                command=lambda: self.disp_text.set("0"))        
+                command=lambda: self.on_click_clear())        
         btn_clear.grid(row=0, column=4, padx=(3,1), pady=(3,1), sticky=tk.W+tk.E+tk.S+tk.N)
         btn_seven = tk.Button(self.keypad_container, text="7", height=2,
                 width=5, command=lambda: self.on_click_digit('7'))
@@ -162,7 +169,7 @@ class Calculator(tk.Frame):
         elif self.str_pending_operation == '-':
                 f_result = f_left_operand - f_right_operand
         elif self.str_pending_operation == '/':
-                f_result = f_left_operand / f_right_operand
+                f_result = self.divide()
         elif self.str_pending_operation == '*':
                 f_result = f_left_operand * f_right_operand
         elif self.str_pending_operation == '%':
@@ -175,7 +182,22 @@ class Calculator(tk.Frame):
 
 
     def on_click_symbol(self, symbol):
-        pass
+        current_diplay_text = self.disp_text.get()    
+        if symbol == '(':
+                if current_diplay_text == '0':
+                        self.disp_text.set('(')
+                else:
+                        self.disp_text.set( current_diplay_text + '(')
+        elif symbol == ')':
+                if current_diplay_text == '0':
+                        pass
+                else:
+                        if Calculator.is_substring_present(current_diplay_text, '(') == True:
+                                self.disp_text.set( current_diplay_text + ')')
+                        else:
+                                pass
+        else:
+                pass
 
     def on_click_sign(self):
         current_diplay_text = self.disp_text.get()    
@@ -188,12 +210,34 @@ class Calculator(tk.Frame):
         else:
                 self.disp_text.set('+')
                 
+    def on_click_clear(self):
+        self.disp_text.set('0')
+        self.status_text.set('')
 
     def on_click_ac(self):
         self.str_left_operand = ''
         self.str_right_operand = ''
         self.str_pending_operation = ''
         self.str_last_result = ''
+        self.status_text.set('')
+
+    def divide(self):
+        try:
+                f_numerator = float(self.str_left_operand)
+                f_denominator = float(self.str_right_operand)
+                return (f_numerator / f_denominator)
+        except ZeroDivisionError as error:
+                self.status_text.set(error)
+        except Exception as e:
+                self.status_text.set(e)
+
+    @staticmethod
+    def is_substring_present(main_str, sub_str):
+        if main_str.find(sub_str) != -1:
+                return True
+        else:
+                return False
+
 
 
 if __name__ == "__main__":    

@@ -51,16 +51,32 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(self.calc.str_pending_operation, '')
         self.assertEqual(self.calc.str_last_result, '')
 
-    def test_one_click_sign_button_is_plus(self):
+    def test_one_click_sign_btn_is_positive_num(self):
         self.calc.on_click_sign()
         self.assertEqual(self.calc.disp_text.get(), '+')
 
-    def test_two_clicks_sign_button_is_minus(self):
+    def test_two_clicks_sign_btn_is_negative_num(self):
         self.calc.on_click_sign()
         self.calc.on_click_sign()
         self.assertEqual(self.calc.disp_text.get(), '-')        
 
+    def test_start_expr_with_open_brace(self):
+        self.calc.on_click_symbol('(')
+        self.assertEqual(self.calc.disp_text.get(), '(')        
 
+    def test_start_with_close_brace_display_unchanged(self):
+        self.calc.on_click_symbol(')')
+        self.assertEqual(self.calc.disp_text.get(), '0')        
+
+    def test_open_brace_in_middle_of_expr(self):
+        self.calc.disp_text.set('51')
+        self.calc.on_click_symbol('(')
+        self.assertEqual(self.calc.disp_text.get(), '51(')   
+
+    def test_close_brace_without_open_brace_display_unchanged(self):
+        self.calc.disp_text.set('51')     
+        self.calc.on_click_symbol(')')
+        self.assertEqual(self.calc.disp_text.get(), '51')   
 
 
 if __name__ == "__main__":
